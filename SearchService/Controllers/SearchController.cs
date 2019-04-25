@@ -11,6 +11,11 @@ namespace SearchService.Controllers
     public class SearchController : ControllerBase
     {
 
+        public SearchController()
+        {
+
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<string>> SearchHotels()
         {
