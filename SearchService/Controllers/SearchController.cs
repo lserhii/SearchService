@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SearchService.Infrastructure;
 
 namespace SearchService.Controllers
 {
@@ -10,16 +11,17 @@ namespace SearchService.Controllers
     [ApiController]
     public class SearchController : ControllerBase
     {
+        private readonly IHotelSearcher hotelSearcher;
 
-        public SearchController()
+        public SearchController(IHotelSearcher hotelSearcher)
         {
-
+            this.hotelSearcher = hotelSearcher;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<string>> SearchHotels()
+        public ActionResult<IEnumerable<Hotel>> SearchHotels([FromQuery]string searchTerm)
         {
-            return new string[] { "value1", "value2" };
+            return Ok(hotelSearcher.Search(searchTerm));
         }
 
         [HttpGet]
